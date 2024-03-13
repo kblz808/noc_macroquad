@@ -16,7 +16,7 @@ async fn main() {
         let mut mouse = vec2(mouse_position().0, mouse_position().1);
         let center = vec2(screen_width() / 2.0, screen_height() / 2.0);
 
-        let stroke_color = Color::new(200.0 / 255.0, 200.0 / 255.0, 200.0 / 255.0, 1.0);
+        let stroke_color = Color::from_rgba(200, 200, 200, 255);
         draw_line(0.0, 0.0, mouse.x, mouse.y, stroke_width, stroke_color);
         draw_line(0.0, 0.0, center.x, center.y, stroke_width, stroke_color);
 
