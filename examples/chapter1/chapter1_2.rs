@@ -27,7 +27,7 @@ async fn main() {
             velocity.y = velocity.y * -1.0;
         }
 
-        let color = Color::new(127.0 / 255.0, 127.0 / 255.0, 127.0 / 255.0, 1.0);
+        let color = Color::from_rgba(127, 127, 127, 255);
 
         draw_circle(position.x, position.y, 48.0, color);
 
