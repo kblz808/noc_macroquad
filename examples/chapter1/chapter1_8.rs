@@ -25,7 +25,7 @@ impl Mover {
 
     fn update(&mut self) {
         self.velocity = self.velocity.add(self.acceleration);
-        self.velocity.clamp_length(0.0, self.top_speed);
+        self.velocity = self.velocity.clamp_length(0.0, self.top_speed);
         self.position = self.position.add(self.velocity);
     }
 

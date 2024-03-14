@@ -42,3 +42,7 @@ path = "examples/chapter1/chapter1_8.rs"
 [[example]]
 name = "chapter1_9"
 path = "examples/chapter1/chapter1_9.rs"
+
+[[example]]
+name = "chapter1_10"
+path = "examples/chapter1/chapter1_10.rs"

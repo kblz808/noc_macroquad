@@ -24,9 +24,13 @@ impl Mover {
     }
 
     fn update(&mut self) {
-        self.acceleration = vec2(rand::gen_range(-1.0, 1.0), rand::gen_range(-1.0, 1.0));
-        self.acceleration = self.acceleration * rand::gen_range(0.0, 2.0);
+        let mouse = Vec2::from(mouse_position());
 
+        let mut dir = mouse - self.position;
+        dir = dir.normalize();
+        dir = dir * 0.2;
+
+        self.acceleration = dir;
         self.velocity = self.velocity.add(self.acceleration);
         self.velocity = self.velocity.clamp_length(0.0, self.top_speed);
         self.position = self.position.add(self.velocity);
@@ -52,7 +56,7 @@ impl Mover {
     }
 }
 
-#[macroquad::main("Motion 101 (Velocity and Random Acceleration)")]
+#[macroquad::main("Accelerating Toward the Mouse")]
 async fn main() {
     setup();
 
