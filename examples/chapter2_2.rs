@@ -2,10 +2,6 @@ use std::ops::Add;
 
 use macroquad::{prelude::*, window};
 
-fn setup() {
-    window::request_new_screen_size(640.0, 240.0);
-}
-
 struct Mover {
     mass: f32,
     position: Vec2,
@@ -14,10 +10,10 @@ struct Mover {
 }
 
 impl Mover {
-    fn new() -> Self {
+    fn new(x: f32, y: f32, m: f32) -> Self {
         return Self {
-            mass: 1.0,
-            position: vec2(screen_width() / 2.0, 30.0),
+            mass: m,
+            position: vec2(x, y),
             velocity: vec2(0.0, 0.0),
             acceleration: vec2(0.0, 0.0),
         };
@@ -36,7 +32,7 @@ impl Mover {
 
     fn show(&self) {
         let color = Color::from_rgba(127, 127, 127, 255);
-        draw_circle(self.position.x, self.position.y, 48.0, color);
+        draw_circle(self.position.x, self.position.y, self.mass * 16.0, color);
     }
 
     fn check_edges(&mut self) {
@@ -55,26 +51,37 @@ impl Mover {
     }
 }
 
-#[macroquad::main("Forces")]
+fn setup() {
+    window::request_new_screen_size(640.0, 240.0);
+}
+
+#[macroquad::main("Forces Acting on Two Objects")]
 async fn main() {
     setup();
 
-    let mut mover = Mover::new();
+    let mut mover_a = Mover::new(200.0, 30.0, 10.0);
+    let mut mover_b = Mover::new(400.0, 300.0, 2.0);
 
     loop {
         clear_background(WHITE);
 
         let gravity = vec2(0.0, 0.1);
-        mover.apply_force(gravity);
+        mover_a.apply_force(gravity);
+        mover_b.apply_force(gravity);
 
         if is_mouse_button_down(MouseButton::Left) {
             let wind = vec2(0.1, 0.0);
-            mover.apply_force(wind);
+            mover_a.apply_force(wind);
+            mover_b.apply_force(wind);
         }
 
-        mover.update();
-        mover.check_edges();
-        mover.show();
+        mover_a.update();
+        mover_a.show();
+        mover_a.check_edges();
+
+        mover_b.update();
+        mover_b.show();
+        mover_b.check_edges();
 
         next_frame().await
     }
