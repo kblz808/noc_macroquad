@@ -1,4 +1,4 @@
-cargo build --target wasm32-unknown-unknown --examples
+cargo build --release --target wasm32-unknown-unknown --examples
 
 i=1
 while [[ -f "target/wasm32-unknown-unknown/debug/examples/chapter${i}_*.wasm" ]]; do
